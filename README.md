@@ -1,5 +1,6 @@
 # General ICEWATCH Information
 
+This is the Norwegian Meterological Institute fork of the Icewatch system, originally developed at the [Geographic Information Network of Alaska](http://github.com/gina-alaska).
 
 Icewatch is the rails application to help with data collection for ice observations.   
 See the http://icewatch.gina.alaska.edu website for details.
