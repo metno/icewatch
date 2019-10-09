@@ -2,6 +2,14 @@
 
   Rails.application.config.middleware.use OmniAuth::Builder do
     provider :developer unless Rails.env.production?
+    provider :oktaoauth, ENV['OKTA_CLIENT_ID'], ENV['OKTA_CLIENT_SECRET'], {
+      client_options: {
+        site:          'https://dev-553292.okta.com',
+        authorize_url: 'https://dev-553292.okta.com/oauth2/v1/authorize',
+        token_url:     'https://dev-553292.okta.com/oauth2/v1/token'
+      },
+      redirect_uri: 'http://157.249.151.243:3000/auth/oktaoauth/callback'
+    }
     # provider :google_oauth2, ENV["GOOGLE_KEY"], ENV["GOOGLE_SECRET"], {
     #   name: "google",
     #   scope: "userinfo.email, userinfo.profile",
