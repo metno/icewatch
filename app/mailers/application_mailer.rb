@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "admin@icewatch.gina.alaska.edu"
+  default from: "icewatch-admin@met.no"
   layout 'mailer'
 end
