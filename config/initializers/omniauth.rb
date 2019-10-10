@@ -8,7 +8,7 @@
         authorize_url: 'https://dev-553292.okta.com/oauth2/v1/authorize',
         token_url:     'https://dev-553292.okta.com/oauth2/v1/token'
       },
-      redirect_uri: 'http://157.249.151.243:3000/auth/oktaoauth/callback'
+      #redirect_uri: 'http://157.249.151.243:3000/auth/oktaoauth/callback'
     }
     # provider :google_oauth2, ENV["GOOGLE_KEY"], ENV["GOOGLE_SECRET"], {
     #   name: "google",
