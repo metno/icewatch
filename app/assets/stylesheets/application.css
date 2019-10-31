@@ -19,3 +19,14 @@
  *= require eonasdan-bootstrap-datetimepicker
  *= require_self
  */
+
+
+.navbar-brand {
+  padding: 1px 15px;
+}
+
+.navbar-brand img {
+  height: 100%;
+  width: auto;
+}
+

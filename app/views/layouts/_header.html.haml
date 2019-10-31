@@ -2,10 +2,10 @@
   .container-fluid
     .navbar-header{style: 'position: relative'}
       = link_to root_url, class: 'navbar-brand' do
-        = image_tag 'icewatch_logo.png', class: 'logo'
+        = image_tag 'icewatch_logo.png'
     .navbar-header{style: 'position: relative'}
       = link_to 'https://www.met.no/en', class: 'navbar-brand' do
-        = image_tag 'Met_RGB_Horisontal_Engelsk.png', class: 'logo2'
+        = image_tag 'Met_RGB_Horisontal_Engelsk.png'
 
     %ul.nav.navbar-nav.navbar-right
       - if current_user.has_role?('admin')
