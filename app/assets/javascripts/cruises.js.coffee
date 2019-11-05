@@ -7,18 +7,19 @@ $(document).on 'ready turbolinks:load', ->
   crs = new L.Proj.CRS('EPSG:3995',
   "+proj=stere +lat_0=90 +lat_ts=71 +lon_0=0 +k=1 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs",
   {
-    origin: [-12403632.820000000298023,17760.814940000000206],
+    origin: [0, 0], 
     resolutions: [22600, 11300, 5650, 2825, 1412.5, 706.25, 353.125, 176.5625, 88.28125, 44.140625],
     tileSize: 256,
-    bounds: L.bounds([-12403632.820, 17760.815,12417841.080,-13082466.960])
+    bounds: L.bounds([-3400000, 3400000, 3400000,-3400000])
   })
 
   return if $('#map').length == 0
 
   map = new L.Map 'map',
   	crs: crs,
-  	continuousWorld: true
-  map.setView [80.856,-147.849], 3
+  	continuousWorld: true,
+
+  map.setView [90, 90], 2 
 
   L.tileLayer.wms('http://eumetview.eumetsat.int/geoserv/wms', {
     layers: 'bkg-raster:bkg-raster'
@@ -43,7 +44,9 @@ $(document).on 'ready turbolinks:load', ->
           L.circleMarker(latlng, markerOptions)
       )
       cruiseLayer.addLayer(layer)
-      map.fitBounds(cruiseLayer.getBounds())
+      # zooms to data 
+      # commented out to stop multiple zooms when loading many datasets
+      #map.fitBounds(cruiseLayer.getBounds())
 
 $(document).on 'change.bs.fileinput', '.cruise-upload', (event) ->
   $(this).find('input[type=file]').parse
