@@ -37,10 +37,10 @@ gem 'chartkick'
 
 gem 'haml'
 gem 'omniauth'
-gem 'omniauth-github'
-gem 'omniauth-google-oauth2'
-gem 'omniauth-openid'
-gem 'google-api-client'
+#gem 'omniauth-github'
+#gem 'omniauth-google-oauth2'
+#gem 'omniauth-openid'
+#gem 'google-api-client'
 gem 'omniauth-oktaoauth'
 
 gem 'friendly_id'
@@ -63,7 +63,7 @@ gem 'active_link_to'
 gem 'font-awesome-rails'
 gem 'sidekiq', '< 5', platforms: :ruby
 
-gem 'rubypython'
+gem 'rubypython'#, '~> 0.6.4'
 
 group :development, :test do
   gem 'better_errors', platforms: :ruby
@@ -93,4 +93,4 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-highcharts', '4.1.10'
 end
 
-ruby '2.3.4'
+ruby '2.3.8'
