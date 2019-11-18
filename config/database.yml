@@ -10,7 +10,7 @@ if RUBY_PLATFORM == "java"
   DB = java.lang.System.getProperty("db") || "db/production.sqlite3"
 else
   ADAPTER = 'postgresql'
-  DB = "icewatch_production"
+  DB = "icewatch-production"
 end
 %>
 default: &default
@@ -20,7 +20,7 @@ default: &default
   database: <%= ENV['RAILS_DATABASE'] %>
   username: <%= ENV['RAILS_DATABASE_USERNAME'] %>
   password: <%= ENV['RAILS_DATABASE_PASSWORD'] %>
-  host:     <%= ENV['RAILS_DATABASE_HOST'] %>
+  host:     <%= ENV['RAILS_DATABASE_HOST'] || localhost %>
   encoding: UTF8
 
 development:
