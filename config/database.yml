@@ -20,7 +20,7 @@ default: &default
   database: <%= ENV['RAILS_DATABASE'] %>
   username: <%= ENV['RAILS_DATABASE_USERNAME'] %>
   password: <%= ENV['RAILS_DATABASE_PASSWORD'] %>
-  host:     <%= ENV['RAILS_DATABASE_HOST'] || localhost %>
+  host:     <%= ENV['RAILS_DATABASE_HOST'] || 'localhost' %>
   encoding: UTF8
 
 development:
