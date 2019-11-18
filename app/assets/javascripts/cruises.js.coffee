@@ -21,7 +21,7 @@ $(document).on 'ready turbolinks:load', ->
 
   map.setView [90, 90], 2 
 
-  L.tileLayer.wms('http://eumetview.eumetsat.int/geoserv/wms', {
+  L.tileLayer.wms('https://eumetview.eumetsat.int/geoserv/wms', {
     layers: 'bkg-raster:bkg-raster'
     format: 'image/png'
     transparent: true
