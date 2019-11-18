@@ -1,7 +1,7 @@
 %p.lead
   This guide is for those who wish to participate in Ice Watch by
   performing visual sea ice observations while at sea and contributing
-  data to the #{link_to 'IceWatch','http://icewatch.gina.alaska.edu'}
+  data to the #{link_to 'IceWatch', root_path}
   or #{link_to 'ASPeCt','http://aspect.antarctica.gov.au'}
   archive. Ice Watch collates sea ice observations collected in the
   Northern Hemisphere, whereas ASPeCt coordinates similar data collection in the Southern
@@ -28,14 +28,14 @@
       .col-xs-1
         .numberCircle 2
       .col-xs-8.col-xs-offset-1
-        .lead= link_to "Register for an Ice Watch account", "/auth/gina"
+        .lead= link_to "Register for an Ice Watch account", "/auth/oktaoauth"
         %p
           To participate in Ice Watch data collection please first
           register for an Ice Watch account. When you open an account the Ice
           Watch team will be informed, and they may contact you to identify
           your interests and what kind of account you require. If it is
           determined you will be contributing data we will enable your account
-          to do so. Please send an #{mail_to 'icewatch@gina.alaska.edu', 'email'} when you register your account to confirm we received the registration information.
+          to do so. Please send an #{mail_to 'icewatch@met.no', 'email'} when you register your account to confirm we received the registration information.
 
         
 
@@ -58,7 +58,7 @@
         %p
           If the cruise metadata changes between registering the cruise
           and completing the cruise (for example, the cruise dates change),
-          please send an #{mail_to 'icewatch@gina.alaska.edu', 'email'}
+          please send an #{mail_to 'icewatch@met.no', 'email'}
           to the Ice Watch team and we will help you correct it.
 
 .panel.panel-default
@@ -79,7 +79,7 @@
           with ASSIST to a thumbdrive or another computer daily. 
           You can find the sqlite database in the directory you ran the ASSIST launcher from. 
           Routinely export the all observations
-          to csv from ASSIST and store them on another computer. #{mail_to 'icewatch@gina.alaska.edu', 'Email'} the
+          to csv from ASSIST and store them on another computer. #{mail_to 'icewatch@met.no', 'Email'} the
           Ice Watch team if you need assistance.
          
 .panel.panel-default
@@ -92,7 +92,7 @@
         %p
           If you would like your data posted in near-real time while
           you are at sea, you
-          can #{mail_to 'icewatch@gina.alaska.edu', 'email'} your data to the
+          can #{mail_to 'icewatch@met.no', 'email'} your data to the
           Ice Watch team.  Send daily or weekly CSV files exported from ASSIST.
 
 .panel.panel-default
