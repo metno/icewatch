@@ -4,33 +4,31 @@
 
 
 $(document).on 'ready turbolinks:load', ->
-  crs = new L.Proj.CRS('EPSG:3572',
-	 '+proj=laea +lat_0=90 +lon_0=-150 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m +no_defs',
-  		resolutions: [
-  			32768, 16384, 8192, 4096, 2048, 1024, 512, 256, 128,
-  			64, 32, 16, 8, 4, 2, 1, 0.5
-  		],
-  		transformation: new L.Transformation(1, -9020047.848073645, -1, 9020047.848073645))
+  crs = new L.Proj.CRS('EPSG:3995',
+  "+proj=stere +lat_0=90 +lat_ts=71 +lon_0=0 +k=1 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs",
+  {
+    origin: [0, 0], 
+    resolutions: [22600, 11300, 5650, 2825, 1412.5, 706.25, 353.125, 176.5625, 88.28125, 44.140625],
+    tileSize: 256,
+    bounds: L.bounds([-3400000, 3400000, 3400000,-3400000])
+  })
 
   return if $('#map').length == 0
 
   map = new L.Map 'map',
   	crs: crs,
-  	continuousWorld: true
-  map.setView [80.856,-147.849], 3
+  	continuousWorld: true,
 
-  L.tileLayer.wms('http://wms.alaskamapped.org/gina/bdl?GOGC=22F4942A5CC6',
-    layers: 'BestDataAvailableLayer'
-    format: 'image/jpeg'
-    continuousWorld: true).addTo(map)
+  map.setView [90, 90], 2 
 
-  # L.tileLayer.wms('http://nsidc.org/cgi-bin/atlas_north',
-  #   layers: 'sea_ice_concentration_09'
-  #   transparent: true
-  #   format: 'image/gif'
-  #   continuousWorld: true
-  #   version: '1.1.1'
-  #   attributution: '&copy; <a href="http://nsidc.org">NSIDC</a>').addTo(map)
+  L.tileLayer.wms('https://eumetview.eumetsat.int/geoserv/wms', {
+    layers: 'bkg-raster:bkg-raster'
+    format: 'image/png'
+    transparent: true
+    continuousWorld: true
+    attributution: '<a href="https://eumetview.eumetsat.int">EUMETSAT</a>'
+  }).addTo(map)
+
   cruiseLayer = L.featureGroup().addTo(map)
 
   $("#map > layer").each (index, layer) ->
@@ -46,7 +44,9 @@ $(document).on 'ready turbolinks:load', ->
           L.circleMarker(latlng, markerOptions)
       )
       cruiseLayer.addLayer(layer)
-      map.fitBounds(cruiseLayer.getBounds())
+      # zooms to data 
+      # commented out to stop multiple zooms when loading many datasets
+      #map.fitBounds(cruiseLayer.getBounds())
 
 $(document).on 'change.bs.fileinput', '.cruise-upload', (event) ->
   $(this).find('input[type=file]').parse

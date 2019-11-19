@@ -2,7 +2,7 @@
 The following cruises have observations pending approval:
 
 <%- @cruises.each do |cruise| %>
-  <%= cruise_url(cruise, host: 'icewatch.gina.alaska.edu') %>
+  <%= cruise_url(cruise) %>
 <%- end %>
 <%- end %>
 
@@ -10,6 +10,6 @@ The following cruises have observations pending approval:
 The following users registered with IceWatch:
 
 <%- @users.each do |user| %>
-  <%= user_url(user, host: 'icewatch.gina.alaska.edu') %>
+  <%= user_url(user) %>
 <%- end %>
 <%- end %>

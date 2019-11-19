@@ -1,5 +1,5 @@
 class ImportMailer < ApplicationMailer
-  default from: 'admin@icewatch.gina.alaska.edu'
+	default from: 'icewatch-admin@met.no'
 
   def daily_summary(email, cruises, users)
     @users = users
