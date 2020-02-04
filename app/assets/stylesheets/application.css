@@ -22,11 +22,21 @@
 
 
 .navbar-brand {
-  padding: 1px 15px;
+  padding: 3px 15px;
+  height: 65px;
 }
 
 .navbar-brand img {
   height: 100%;
   width: auto;
+}
+
+.navbar-link {
+  height: 65px;
+}
+
+.navbar-nav > li > a {
+  padding-top: 22px;
+  padding-bottom: 22px;
 }
 
