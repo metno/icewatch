@@ -2,13 +2,13 @@
 %html
   %head
     %title Icewatch
+    = render 'layouts/google_analytics'
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = favicon_link_tag asset_path('favicon.png')
     = csrf_meta_tags
-    = render 'layouts/google_analytics'
-    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body
+    = render 'layouts/google_analytics_body'
     = render 'layouts/header'
     .container-fluid
       = flash_messages
