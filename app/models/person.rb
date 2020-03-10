@@ -1,4 +1,4 @@
-class Person < ActiveRecord::Base
+class Person < ApplicationRecord
   has_many :person_observations
   has_many :observations, through: :person_observations
   has_many :comments

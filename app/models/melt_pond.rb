@@ -1,4 +1,4 @@
-class MeltPond < ActiveRecord::Base
+class MeltPond < ApplicationRecord
   include Lookupable
   include Importable::MeltPond
   belongs_to :ice_observation

@@ -1,4 +1,4 @@
-class ImportFileJob < ActiveJob::Base
+class ImportFileJob < ApplicationJob
   queue_as :default
 
   def perform(uploaded_file)

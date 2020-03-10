@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   authorize_resource
 
   def index
-    @users = User.order('lower(name) ASC')
+    @users = User.order(Arel.sql('lower(name) ASC'))
   end
 
   def show

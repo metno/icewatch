@@ -1,4 +1,4 @@
-class Cruise < ActiveRecord::Base
+class Cruise < ApplicationRecord
   include PrimaryObserver
   include Zippable
   include Importable::Cruise
@@ -7,7 +7,7 @@ class Cruise < ActiveRecord::Base
   has_many :uploaded_files
   has_many :photos, dependent: :destroy
   has_and_belongs_to_many :users
-  belongs_to :primary_observer, class_name: Person
+  belongs_to :primary_observer, class_name: 'Person'
 
   validates_presence_of :ship, :starts_at, :ends_at, :objective
   validates_length_of :objective, maximum: 300

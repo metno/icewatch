@@ -1,4 +1,4 @@
-class Topography < ActiveRecord::Base
+class Topography < ApplicationRecord
   include Lookupable
   include Importable::Topography
 

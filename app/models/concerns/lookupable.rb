@@ -13,9 +13,9 @@ module Lookupable
   # end
   class_methods do
     def lookup(name, opts = {})
-      class_name = (opts[:class_name] || name.to_s.camelize).constantize
+	    class_name = (opts[:class_name] || name.to_s.camelize).constantize
 
-      belongs_to name, class_name: class_name
+	    belongs_to name, class_name: class_name.to_s
 
       define_method("#{name}_code=") do |code|
         send("#{name}_id=", class_name.find_by(code: code).try(:id))

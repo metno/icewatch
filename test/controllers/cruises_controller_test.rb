@@ -20,7 +20,8 @@ class CruisesControllerTest < ActionController::TestCase
   test 'should create cruise' do
     login_user(:admin)
     assert_difference('Cruise.count') do
-      post :create, cruise: { approved: @cruise.approved, ends_at: @cruise.ends_at, objective: @cruise.objective, starts_at: @cruise.starts_at, ship: @cruise.ship }
+	    post :create, params: { cruise: { approved: @cruise.approved, ends_at: @cruise.ends_at, objective: @cruise.objective, starts_at: @cruise.starts_at, ship: @cruise.ship } }
+      #assert_nil assigns(:cruise).errors 
     end
 
     assert_redirected_to cruise_path(assigns(:cruise))
@@ -28,26 +29,26 @@ class CruisesControllerTest < ActionController::TestCase
 
   test 'should show cruise' do
     login_user(:admin)
-    get :show, id: @cruise
+    get :show, params: { id: @cruise }
     assert_response :success
   end
 
   test 'should get edit' do
     login_user(:admin)
-    get :edit, id: @cruise
+    get :edit, params: { id: @cruise }
     assert_response :success
   end
 
   test 'should update cruise' do
     login_user(:admin)
-    patch :update, id: @cruise, cruise: { approved: @cruise.approved, ends_at: @cruise.ends_at, objective: @cruise.objective, starts_at: @cruise.starts_at, ship: @cruise.ship }
+    patch :update, params: { id: @cruise, cruise: { approved: @cruise.approved, ends_at: @cruise.ends_at, objective: @cruise.objective, starts_at: @cruise.starts_at, ship: @cruise.ship } }
     assert_redirected_to cruise_path(assigns(:cruise))
   end
 
   test 'should destroy cruise' do
     login_user(:admin)
     assert_difference('Cruise.count', -1) do
-      delete :destroy, id: @cruise
+      delete :destroy, params: { id: @cruise }
     end
 
     assert_redirected_to cruises_path

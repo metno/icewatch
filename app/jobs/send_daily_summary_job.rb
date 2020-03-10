@@ -1,7 +1,7 @@
-class SendDailySummaryJob < ActiveJob::Base
+class SendDailySummaryJob < ApplicationJob
   queue_as :default
 
-  def perform(*args)
+  def perform(*_args)
     users = User.where(role: %w{manager admin}).pluck(:email)
 
     cruise_ids = Observation.saved.pluck(:cruise_id).uniq

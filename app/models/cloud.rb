@@ -1,4 +1,4 @@
-class Cloud < ActiveRecord::Base
+class Cloud < ApplicationRecord
   include Lookupable
   include Importable::Cloud
 

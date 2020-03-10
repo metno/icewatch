@@ -1,4 +1,4 @@
-class PersonObservation < ActiveRecord::Base
+class PersonObservation < ApplicationRecord
   belongs_to :person
   belongs_to :observation
 

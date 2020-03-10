@@ -1,4 +1,4 @@
-class Meteorology < ActiveRecord::Base
+class Meteorology < ApplicationRecord
   include Lookupable
   include Importable::Meteorology
   has_many :clouds

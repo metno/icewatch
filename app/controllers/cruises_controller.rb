@@ -146,7 +146,7 @@ class CruisesController < ApplicationController
   def cruise_params
     params.require(:cruise).permit(:starts_at, :ends_at, :objective, :approved,
                                    :chief_scientist, :captain, :ship,
-                                   :primary_observer_id_or_name)
+                                   :primary_observer)#_id_or_name)
   end
 
   def set_active_cruise

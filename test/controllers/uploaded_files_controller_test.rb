@@ -6,9 +6,9 @@ class UploadedFilesControllerTest < ActionController::TestCase
   end
 
   test "should create uploaded_files" do
-    login_user(users(:manager))
+    login_user(:manager)
     assert_difference('UploadedFile.count') do
-      post :create, cruise_id: cruises(:cruise_0), uploaded_file: { file: fixture_file_upload('images/vegas.jpg', 'image/jpg') }
+    post :create, params: { cruise_id: cruises(:cruise_0), uploaded_file: { file: fixture_file_upload('images/vegas.jpg', 'image/jpg') } }
     end
 
   end

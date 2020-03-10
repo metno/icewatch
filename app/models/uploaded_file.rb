@@ -1,4 +1,4 @@
-class UploadedFile < ActiveRecord::Base
+class UploadedFile < ApplicationRecord
   GLOB_OPTIONS = ::File::FNM_PATHNAME | ::File::FNM_DOTMATCH | ::File::FNM_CASEFOLD
 
   require 'net/ftp'

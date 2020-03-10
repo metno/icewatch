@@ -12,7 +12,7 @@ class LookupsControllerTest < ActionController::TestCase
   end
 
   test 'should show lookup' do
-    get :show, id: @lookup
+    get :show, params: { id: @lookup }
     assert_response :success
   end
 

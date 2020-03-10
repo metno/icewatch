@@ -1,4 +1,4 @@
-class Ice < ActiveRecord::Base
+class Ice < ApplicationRecord
   include Lookupable
   include Importable::Ice
 

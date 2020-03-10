@@ -1,4 +1,4 @@
-class Lookup < ActiveRecord::Base
+class Lookup < ApplicationRecord
   validates_presence_of :code, :name
   validates_uniqueness_of :code, scope: :type
 

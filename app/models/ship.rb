@@ -1,4 +1,4 @@
-class Ship < ActiveRecord::Base
+class Ship < ApplicationRecord
   include Lookupable
   include Importable::Ship
 

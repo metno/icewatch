@@ -5,16 +5,16 @@ one:
   ends_at: 2014-09-21 14:45:52
   objective: MyString
   approved: false
-  ship: Boat
   primary_observer: one
+  ship: Boat
 
 test:
   starts_at: 2014-09-21 14:45:52
   ends_at: 2014-09-21 14:45:52
   objective: MyString
   approved: false
+  primary_observer: two
   ship: SS MONKEY
-  primary_observer: one
 
 <% 10.times do |c| %>
 cruise_<%=c%>:

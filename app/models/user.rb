@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   include GinaAuthentication::UserModel
   ROLES = %w(admin manager member guest).freeze
   validates :role, presence: true, inclusion: { in: ROLES }
@@ -13,6 +13,6 @@ class User < ActiveRecord::Base
 
   private
   def protect_admin
-    false if has_role?('admin')
+    throw(:abort) if has_role?('admin')
   end
 end

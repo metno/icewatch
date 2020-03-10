@@ -29,13 +29,13 @@ module Exportable
   end
 
   def export_json
-    File.open(File.join(export_path, "#{to_s}.json"), 'w') do |f|
+    File.open(File.join(export_path, "#{self}.json"), 'w') do |f|
       f << JSON.pretty_generate(JSON.parse(render_to_string))
     end
   end
 
   def export_csv
-    File.open(File.join(export_path, "#{to_s}.csv"), 'w') do |f|
+    File.open(File.join(export_path, "#{self}.csv"), 'w') do |f|
       f << Observation.csv_headers
       f << as_csv.to_csv.html_safe
     end
@@ -44,7 +44,7 @@ module Exportable
   def export_photos
     photos.each do |photo|
       photo_export_filepath = File.join(photo_export_path, photo.file_filename)
-      return if File.exists?(photo_export_filepath)
+      return if File.exist?(photo_export_filepath)
       File.open(photo_export_filepath, 'wb') do |f|
         f << photo.file.to_io.read
       end

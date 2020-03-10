@@ -1,4 +1,4 @@
-class IceObservation < ActiveRecord::Base
+class IceObservation < ApplicationRecord
   include Lookupable
   include Importable::IceObservation
   belongs_to :observation

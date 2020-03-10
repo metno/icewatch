@@ -9,7 +9,7 @@
 Dir.glob('db/lookups/*.json').each do |lookup_file|
   table = File.basename(lookup_file, 's.json').camelize.constantize
   JSON.parse(File.read(lookup_file)).each do |lookup|
-    puts "Creating #{table} - #{lookup['code'].to_s}: #{lookup.inspect}"
+    puts "Creating #{table} - #{lookup['code']}: #{lookup.inspect}"
     r = table.where(code: lookup['code'].to_s).first_or_create(lookup)
   end
 end

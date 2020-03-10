@@ -16,14 +16,14 @@ class CsvObservation
 
   def initialize(params = {})
     params.transform_keys! { |k| k.to_s.downcase }
-    super
+    super(params)
   end
 
   def method_missing(*args)
     super unless args.first =~ /=$/
     field = args.first.to_s.chomp('=').upcase
 
-    errors.add(:base, "Unknown field: '#{field}'")
+    errors.add(:base, :name_or_email_blank, message: "Unknown field: '#{field}'")
   end
 
   def to_observation_json

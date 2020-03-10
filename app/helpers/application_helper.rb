@@ -7,7 +7,7 @@ module ApplicationHelper
     { success: "alert-success", error: "alert-danger", alert: "alert-warning", notice: "alert-info" }[flash_type.to_sym] || "alert-#{flash_type}"
   end
 
-  def flash_messages(opts = {})
+  def flash_messages(_opts = {})
     capture do
       concat(content_tag(:div, '', class: 'flash-messages') do
         flash.each do |msg_type, message|
