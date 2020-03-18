@@ -78,7 +78,7 @@ GEM
       msgpack (~> 1.0)
     bootstrap_form (2.7.0)
     builder (3.2.4)
-    cancancan (3.0.2)
+    cancancan (3.1.0)
     capybara (3.15.1)
       addressable
       mini_mime (>= 0.1.3)
@@ -265,7 +265,9 @@ GEM
       rails-assets-jquery (>= 1.8.3)
       rails-assets-moment (>= 2.10.5)
     rails-assets-highcharts (4.1.10)
-    rails-assets-jasny-bootstrap (3.2.0)
+    rails-assets-jasny-bootstrap (3.1.3)
+      rails-assets-bootstrap (>= 3.1.0)
+      rails-assets-jquery (>= 1.9.0)
     rails-assets-jquery (3.4.1)
     rails-assets-leaflet (0.7.3)
     rails-assets-microplugin (0.0.3)
@@ -451,7 +453,7 @@ DEPENDENCIES
   rails-assets-bootstrap!
   rails-assets-eonasdan-bootstrap-datetimepicker!
   rails-assets-highcharts (= 4.1.10)!
-  rails-assets-jasny-bootstrap!
+  rails-assets-jasny-bootstrap (= 3.1.3)!
   rails-assets-leaflet (= 0.7.3)!
   rails-assets-moment!
   rails-assets-papaparse (= 4.0.7)!

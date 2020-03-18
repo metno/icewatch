@@ -2,6 +2,8 @@ ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'capybara/rails'
+require 'capybara/dsl'
+require 'selenium-webdriver'
 #require 'capybara/poltergeist'
 '''
 Capybara.register_driver :poltergeist_debug do |app|

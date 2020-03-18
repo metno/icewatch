@@ -74,6 +74,7 @@ class CruisesController < ApplicationController
         format.json { render :show, status: :ok, location: @cruise }
       else
         format.html { render :edit }
+	puts "this"
         format.json { render json: @cruise.errors, status: :unprocessable_entity }
       end
     end
@@ -119,7 +120,7 @@ class CruisesController < ApplicationController
   
   def build_json
     result = Jbuilder.new do |json|
-      json.extract! @cruise, :starts_at, :ends_at, :ship, :objective, :captain, :chief_scientist
+      json.extract! @cruise, :id, :starts_at, :ends_at, :ship, :objective, :captain, :chief_scientist
       json.primary_observer @cruise.primary_observer.try(:name)
     end.attributes!
     JSON.generate(result)
@@ -146,7 +147,7 @@ class CruisesController < ApplicationController
   def cruise_params
     params.require(:cruise).permit(:starts_at, :ends_at, :objective, :approved,
                                    :chief_scientist, :captain, :ship,
-                                   :primary_observer)#_id_or_name)
+                                   :primary_observer_id_or_name)
   end
 
   def set_active_cruise

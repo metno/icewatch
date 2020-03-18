@@ -93,7 +93,7 @@ end
 source 'https://rails-assets.org' do
   gem 'rails-assets-bootstrap'
   gem 'rails-assets-eonasdan-bootstrap-datetimepicker'
-  gem 'rails-assets-jasny-bootstrap'
+  gem 'rails-assets-jasny-bootstrap', '3.1.3'
   gem 'rails-assets-selectize', '0.11.2'
   gem 'rails-assets-leaflet', '0.7.3'
   gem 'rails-assets-proj4'

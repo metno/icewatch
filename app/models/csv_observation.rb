@@ -15,6 +15,7 @@ class CsvObservation
                 :note1, :note2, :comments
 
   def initialize(params = {})
+    puts params
     params.transform_keys! { |k| k.to_s.downcase }
     super(params)
   end

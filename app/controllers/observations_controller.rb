@@ -63,8 +63,46 @@ class ObservationsController < ApplicationController
   # POST /observations.json
   def create
     @cruise = Cruise.find(params[:cruise_id])
-    @observation = @cruise.build_observation
+    statuses = []
+    if params[:observation].kind_of? Array
+      puts "Processing Array"
+      params[:observation].each do |observation_params|
+        @observation = @cruise.build_observation
+	@observation.assign_attributes observation_params
+      end
+      
+    else
+      puts "Processing single observation"
+      @observation = @cruise.build_observation
+      @observation.assign_attributes observation_params #select_permitted(params)
+      @observation.save
+      #statuses << ( @observation.save ? "OK" : @observation.errors)
+    end 
 
+    #puts @observation.errors 
+    #if observation_params.kind_of? Array
+     #TODO THIS IS NOT FINISHED, SEE https://stackoverflow.com/questions/52822103/rails-5-api-single-endpoint-for-both-individual-json-object-and-array-of-json
+    '''
+    statuses = []
+    params[:observation].each do |these_params|
+      #@observation = []
+      @observation = @cruise.build_observation
+      #@observation.save
+      #puts these_params 
+      #@observation.assign_attributes select_permitted(these_params)
+      statuses << ( @observation.save ? "OK" : @observation.errors)
+
+    end
+    '''
+
+    #@json_observation = CsvObservation.new(observation_params)
+
+    #@observation = @json_observation.build_observation
+    #@observation.cruise = @cruise
+
+    #render json: statuses
+
+    #format.json { render :show, status: :created, location: observation }
     respond_to do |format|
       if @observation.save validate: false
         format.html { redirect_to edit_observation_path(@observation), notice: 'Observation was successfully created.' }
@@ -284,8 +322,10 @@ private
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
-  def observation_params
-    params.require(:observation).permit(
+  def observation_params#select_permitted(these_params)
+    params.require(:observation).permit(#.map do |p|
+    #these_params.permit(
+      #p.permit(
       :cruise_id, :observed_at, :latitude, :longitude, :uuid,
       :lat_minutes, :lat_seconds, :lon_minutes, :lon_seconds,
       :primary_observer_id_or_name, additional_observers_id_or_name: [],
@@ -313,6 +353,8 @@ private
                                     faunas_attributes: [:id, :name, :count, :_destroy],
                                     photos_attributes: [:id, :file, :on_boat_location_lookup_id, :_destroy]
     )
+    #end
+
   end
 
   def import_params
