@@ -31,7 +31,7 @@ gem 'warbler', '~> 2.0.0'#, platforms: :jruby
 gem 'activerecord-jdbcsqlite3-adapter', platforms: :jruby
 gem 'jruby-openssl', platforms: :jruby
 
-gem 'pg', platforms: :ruby
+gem 'pg','= 0.21.0', platforms: :ruby
 gem 'puma', platforms: :ruby
 gem 'chartkick'
 
@@ -45,7 +45,7 @@ gem 'omniauth-oktaoauth'
 
 gem 'friendly_id'
 gem 'nested_form'
-gem 'bootstrap_form', git: 'https://github.com/bootstrap-ruby/rails-bootstrap-forms.git'
+gem 'bootstrap_form', '= 2.7.0' #git: 'https://github.com/bootstrap-ruby/rails-bootstrap-forms.git'
 gem 'cancancan'
 gem 'rails_12factor', group: :production
 gem 'httparty'
@@ -81,9 +81,9 @@ end
 
 
 source 'https://rails-assets.org' do
-  gem 'rails-assets-bootstrap'
+  gem 'rails-assets-bootstrap', '3.3.7'
   gem 'rails-assets-eonasdan-bootstrap-datetimepicker'
-  gem 'rails-assets-jasny-bootstrap'
+  gem 'rails-assets-jasny-bootstrap', '3.1.3'
   gem 'rails-assets-selectize', '0.11.2'
   gem 'rails-assets-leaflet', '0.7.3'
   gem 'rails-assets-proj4'
