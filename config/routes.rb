@@ -13,6 +13,7 @@ Rails.application.routes.draw do
         
         post :import
         post :import_follow_up
+	post :upload
         delete :all
         delete :unapproved
         delete :invalid

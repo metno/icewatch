@@ -59,8 +59,60 @@ class ObservationsController < ApplicationController
     @observation.photos.build
   end
 
-  # POST /observations
-  # POST /observations.json
+  # POST /upload
+  # POST /upload.json
+  def upload
+    @cruise = Cruise.find(params[:cruise_id])
+
+    success_count = 0
+    fail_count = 0 
+    if params[:observation].kind_of? Array
+      puts "Processing Array"
+      multi_observation_params.each do |single_params, index|
+        @observation = @cruise.build_observation
+	@observation.assign_attributes single_params
+
+	# if photo_attributes has file
+	# read b64 and save image 
+	
+	if @observation.save validate: false
+	  success_count += 1
+	else
+	  fail_count += 1
+	end
+      end
+	
+    else
+      puts "Processing single observation"
+      @observation = @cruise.build_observation
+      @observation.assign_attributes observation_params
+
+      if @observation.save validate: false
+        success_count += 1
+      else
+        fail_count += 1
+      end
+    end 
+
+    count_json = { "successes" => success_count, "failures" => fail_count }
+
+    respond_to do |format|
+      format.json { render json: count_json, status: :created }
+    end
+#    respond_to do |format|
+#      if @observation.save validate: false
+#        format.html { redirect_to edit_observation_path(@observation), notice: 'Observation was successfully created.' }
+#        format.json { render :show, status: :created, location: @observation }
+#      else
+#        format.html { render :new }
+#        format.json { render json: @observation.errors, status: :unprocessable_entity }
+#      end
+#    end
+
+  end
+
+  # POST /observation
+  # POST /observation.json
   def create
     @cruise = Cruise.find(params[:cruise_id])
     @observation = @cruise.build_observation
@@ -73,7 +125,7 @@ class ObservationsController < ApplicationController
         format.html { render :new }
         format.json { render json: @observation.errors, status: :unprocessable_entity }
       end
-    end
+    end  
   end
 
   # PATCH/PUT /observations/1
@@ -81,7 +133,7 @@ class ObservationsController < ApplicationController
   def update
     @observation.assign_attributes observation_params
     respond_to do |format|
-      if @observation.save(validate: false)
+      if @observation.save#(validate: false)
         if params[:commit] == 'Save and Exit'
           format.html { redirect_to root_url }
         else
@@ -285,7 +337,19 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def observation_params
-    params.require(:observation).permit(
+    params.require(:observation).permit(*ALLOWED_OBS_PARAMS)
+    #params.permit(
+  #def select_permitted(observation_params)
+  #  observation_params.permit(
+  end
+
+  def multi_observation_params
+    params.require(:observation).map do |p|
+      p.permit(*ALLOWED_OBS_PARAMS)
+    end
+  end
+
+ALLOWED_OBS_PARAMS = [
       :cruise_id, :observed_at, :latitude, :longitude, :uuid,
       :lat_minutes, :lat_seconds, :lon_minutes, :lon_seconds,
       :primary_observer_id_or_name, additional_observers_id_or_name: [],
@@ -312,8 +376,8 @@ private
                                                             ],
                                     faunas_attributes: [:id, :name, :count, :_destroy],
                                     photos_attributes: [:id, :file, :on_boat_location_lookup_id, :_destroy]
-    )
-  end
+]#    )
+#  end
 
   def import_params
     params.require(:observation).permit!

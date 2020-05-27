@@ -72,7 +72,8 @@ group :development, :test do
   gem 'guard'
   gem 'guard-minitest'
   gem 'guard-rubocop'
-  gem 'shoulda'
+  # \/ can almost certainly be relaxed when upgraded 
+  gem 'shoulda', '= 3.5.0'
   gem 'capybara'
   gem 'poltergeist'
   gem 'forgery'
