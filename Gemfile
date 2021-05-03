@@ -42,6 +42,7 @@ gem 'omniauth'
 #gem 'omniauth-openid'
 #gem 'google-api-client'
 gem 'omniauth-oktaoauth'
+gem 'omniauth-keycloak'
 
 gem 'friendly_id'
 gem 'nested_form'
