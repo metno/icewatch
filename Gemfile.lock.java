@@ -55,7 +55,6 @@ GEM
       public_suffix (~> 2.0, >= 2.0.2)
     arel (6.0.3)
     ast (2.3.0)
-    bower-rails (0.11.0)
     builder (3.2.2)
     cancancan (1.15.0)
     capybara (2.10.1)

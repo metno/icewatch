@@ -51,7 +51,6 @@ gem 'rails_12factor', group: :production
 gem 'httparty'
 gem 'aasm'
 gem 'rubyzip', '>= 1.0.0', require: 'zip'
-#gem 'bower-rails'
 gem 'whenever', platforms: :ruby
 gem 'tzinfo-data'#, platforms: [:mingw, :mswin, :jruby]
 gem 'high_voltage', '~> 2.2.1'#, platforms: :ruby
