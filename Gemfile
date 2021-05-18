@@ -36,7 +36,7 @@ gem 'puma', platforms: :ruby
 gem 'chartkick'
 
 gem 'haml'
-gem 'omniauth'
+gem 'omniauth', '>= 1.8.1'
 #gem 'omniauth-github'
 #gem 'omniauth-google-oauth2'
 #gem 'omniauth-openid'
