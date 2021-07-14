@@ -2,11 +2,11 @@ class PhotosController < ApplicationController
   before_action :set_parent
 
   def show
-    path = params[:filename]
-    full_path = File.join(EXPORT_PATH, "#{path}.#{params[:format]}")
+    @photo = Photo.find(params[:id])
+    full_path = Refile.store.get(@photo.file_id).download 
 
     respond_to do |format|
-      format.any { send_file full_path, type: request.format, disposition: :inline }
+      format.any { send_file full_path, type: request.format, disposition: 'inline' }
     end
   end
 
@@ -15,7 +15,8 @@ class PhotosController < ApplicationController
   end
 
   def download
-
+    @photo = Photo.find(params[:photo_id])
+    send_file Refile.store.get(@photo.file_id).download
   end
 
   private
