@@ -13,6 +13,7 @@ Rails.application.routes.draw do
         
         post :import
         post :import_follow_up
+	post :upload
         delete :all
         delete :unapproved
         delete :invalid
@@ -47,7 +48,6 @@ Rails.application.routes.draw do
   get '/auth/failure', to: 'sessions#failure'
   resources :sessions
   resources :memberships
-  get '/photos/*filename', to: 'photos#show', as: :photos
 
   get '/about', to: 'pages#about'
   get '/data_guide', to: 'pages#data_guide'

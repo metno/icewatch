@@ -36,12 +36,14 @@ gem 'puma', platforms: :ruby
 gem 'chartkick'
 
 gem 'haml'
-gem 'omniauth'
+gem 'omniauth', '>= 1.8.1'
 #gem 'omniauth-github'
 #gem 'omniauth-google-oauth2'
 #gem 'omniauth-openid'
 #gem 'google-api-client'
-gem 'omniauth-oktaoauth'
+#gem 'omniauth-oktaoauth'
+gem 'omniauth-keycloak'
+gem 'simple_command'
 
 gem 'friendly_id'
 gem 'nested_form'
@@ -71,7 +73,8 @@ group :development, :test do
   gem 'guard'
   gem 'guard-minitest'
   gem 'guard-rubocop'
-  gem 'shoulda'
+  # \/ can almost certainly be relaxed when upgraded 
+  gem 'shoulda', '= 3.5.0'
   gem 'capybara'
   gem 'poltergeist'
   gem 'forgery'

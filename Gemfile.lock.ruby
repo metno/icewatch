@@ -1,9 +1,3 @@
-GIT
-  remote: https://github.com/bootstrap-ruby/rails-bootstrap-forms.git
-  revision: 0fac4b176e753e2883b6632ab62926981cc88550
-  specs:
-    bootstrap_form (2.7.0)
-
 GEM
   remote: https://rubygems.org/
   remote: https://rails-assets.org/
@@ -54,15 +48,18 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.5.1)
       public_suffix (~> 2.0, >= 2.0.2)
+    aes_key_wrap (1.1.0)
     arel (6.0.4)
     ast (2.3.0)
     better_errors (2.2.0)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
       rack (>= 0.9.0)
+    bindata (2.4.10)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     blankslate (3.1.3)
+    bootstrap_form (2.7.0)
     builder (3.2.3)
     cancancan (2.0.0)
     capybara (2.14.4)
@@ -87,8 +84,6 @@ GEM
     concurrent-ruby (1.0.5-java)
     connection_pool (2.2.1)
     debug_inspector (0.0.3)
-    declarative (0.0.9)
-    declarative-option (0.1.0)
     domain_name (0.5.20170404)
       unf (>= 0.0.5, < 1.0.0)
     dotenv (2.2.1)
@@ -97,7 +92,7 @@ GEM
       railties (>= 3.2, < 5.2)
     erubis (2.7.0)
     execjs (2.7.0)
-    faraday (0.12.2)
+    faraday (1.0.1)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.18)
     ffi (1.9.18-java)
@@ -109,23 +104,6 @@ GEM
       activerecord (>= 4.0.0)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
-    google-api-client (0.10.3)
-      addressable (~> 2.3)
-      googleauth (~> 0.5)
-      httpclient (~> 2.7)
-      hurley (~> 0.1)
-      memoist (~> 0.11)
-      mime-types (>= 1.6)
-      representable (~> 3.0)
-      retriable (>= 2.0, < 4.0)
-    googleauth (0.5.3)
-      faraday (~> 0.12)
-      jwt (~> 1.4)
-      logging (~> 2.0)
-      memoist (~> 0.12)
-      multi_json (~> 1.11)
-      os (~> 0.9)
-      signet (~> 0.7)
     guard (2.14.1)
       formatador (>= 0.2.4)
       listen (>= 2.7, < 4.0)
@@ -145,14 +123,12 @@ GEM
     haml (5.0.1)
       temple (>= 0.8.0)
       tilt
-    hashie (3.5.6)
+    hashie (4.1.0)
     high_voltage (2.2.1)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     httparty (0.15.6)
       multi_xml (>= 0.5.2)
-    httpclient (2.8.3)
-    hurley (0.2)
     i18n (0.8.6)
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
@@ -167,7 +143,11 @@ GEM
     jruby-rack (1.1.20)
     json (1.8.6)
     json (1.8.6-java)
-    jwt (1.5.6)
+    json-jwt (1.12.0)
+      activesupport (>= 4.2)
+      aes_key_wrap
+      bindata
+    jwt (2.2.3)
     kaminari (1.0.1)
       activesupport (>= 4.1.0)
       kaminari-actionview (= 1.0.1)
@@ -185,16 +165,11 @@ GEM
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
       ruby_dep (~> 1.2)
-    little-plugger (1.1.4)
-    logging (2.2.2)
-      little-plugger (~> 1.1)
-      multi_json (~> 1.10)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     lumberjack (1.0.12)
     mail (2.6.6)
       mime-types (>= 1.16, < 4)
-    memoist (0.16.0)
     method_source (0.8.2)
     mime-types (2.99.3)
     mini_magick (4.8.0)
@@ -202,7 +177,7 @@ GEM
     minitest (5.10.3)
     multi_json (1.12.1)
     multi_xml (0.6.0)
-    multipart-post (2.0.0)
+    multipart-post (2.1.1)
     nenv (0.3.0)
     nested_form (0.3.2)
     netrc (0.11.0)
@@ -212,30 +187,22 @@ GEM
     notiffany (0.1.1)
       nenv (~> 0.1)
       shellany (~> 0.0)
-    oauth2 (1.4.0)
-      faraday (>= 0.8, < 0.13)
-      jwt (~> 1.0)
+    oauth2 (1.4.7)
+      faraday (>= 0.8, < 2.0)
+      jwt (>= 1.0, < 3.0)
       multi_json (~> 1.3)
       multi_xml (~> 0.5)
       rack (>= 1.2, < 3)
-    omniauth (1.6.1)
-      hashie (>= 3.4.6, < 3.6.0)
+    omniauth (1.9.1)
+      hashie (>= 3.4.6)
       rack (>= 1.6.2, < 3)
-    omniauth-github (1.3.0)
-      omniauth (~> 1.5)
-      omniauth-oauth2 (>= 1.4.0, < 2.0)
-    omniauth-google-oauth2 (0.5.2)
-      jwt (~> 1.5)
-      multi_json (~> 1.3)
-      omniauth (>= 1.1.1)
-      omniauth-oauth2 (>= 1.3.1)
-    omniauth-oauth2 (1.4.0)
-      oauth2 (~> 1.0)
-      omniauth (~> 1.2)
-    omniauth-openid (1.0.1)
-      omniauth (~> 1.0)
-      rack-openid (~> 1.3.1)
-    os (0.9.6)
+    omniauth-keycloak (1.2.1)
+      json-jwt (~> 1.12)
+      omniauth (~> 1.9.0)
+      omniauth-oauth2 (~> 1.6.0)
+    omniauth-oauth2 (1.6.0)
+      oauth2 (~> 1.1)
+      omniauth (~> 1.9)
     parallel (1.12.0)
     parser (2.4.0.0)
       ast (~> 2.2)
@@ -259,9 +226,6 @@ GEM
     public_suffix (2.0.5)
     puma (3.9.1)
     rack (1.6.8)
-    rack-openid (1.3.1)
-      rack (>= 1.1.0)
-      ruby-openid (>= 2.1.8)
     rack-protection (1.5.3)
       rack
     rack-test (0.6.3)
@@ -334,15 +298,10 @@ GEM
     refile-mini_magick (0.2.0)
       mini_magick (~> 4.0)
       refile (~> 0.5)
-    representable (3.0.4)
-      declarative (< 0.1.0)
-      declarative-option (< 0.2.0)
-      uber (< 0.2.0)
     rest-client (1.8.0)
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
-    retriable (3.1.1)
     rubocop (0.49.1)
       parallel (~> 1.10)
       parser (>= 2.3.3.1, < 3.0)
@@ -350,7 +309,6 @@ GEM
       rainbow (>= 1.99.1, < 3.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (~> 1.0, >= 1.0.1)
-    ruby-openid (2.7.0)
     ruby-progressbar (1.8.1)
     ruby_dep (1.5.0)
     rubypython (0.6.3)
@@ -383,11 +341,7 @@ GEM
       connection_pool (~> 2.2, >= 2.2.0)
       rack-protection (>= 1.5.0)
       redis (~> 3.2, >= 3.2.1)
-    signet (0.7.3)
-      addressable (~> 2.3)
-      faraday (~> 0.9)
-      jwt (~> 1.5)
-      multi_json (~> 1.10)
+    simple_command (0.1.0)
     sinatra (1.4.8)
       rack (~> 1.5)
       rack-protection (~> 1.4)
@@ -422,7 +376,6 @@ GEM
       thread_safe (~> 0.1)
     tzinfo-data (1.2017.2)
       tzinfo (>= 1.0.0)
-    uber (0.1.0)
     uglifier (3.2.0)
       execjs (>= 0.3.0, < 3)
     unf (0.1.4)
@@ -456,7 +409,7 @@ DEPENDENCIES
   activerecord-jdbcsqlite3-adapter
   better_errors
   binding_of_caller
-  bootstrap_form!
+  bootstrap_form (= 2.7.0)
   cancancan
   capybara
   chartkick
@@ -465,7 +418,6 @@ DEPENDENCIES
   font-awesome-rails
   forgery
   friendly_id
-  google-api-client
   guard
   guard-minitest
   guard-rubocop
@@ -477,19 +429,17 @@ DEPENDENCIES
   jruby-openssl
   kaminari
   nested_form
-  omniauth
-  omniauth-github
-  omniauth-google-oauth2
-  omniauth-openid
-  pg
+  omniauth (>= 1.8.1)
+  omniauth-keycloak
+  pg (= 0.21.0)
   poltergeist
   pry-rails
   puma
   rails (= 4.2.9)
-  rails-assets-bootstrap!
+  rails-assets-bootstrap (= 3.3.7)!
   rails-assets-eonasdan-bootstrap-datetimepicker!
   rails-assets-highcharts (= 4.1.10)!
-  rails-assets-jasny-bootstrap!
+  rails-assets-jasny-bootstrap (= 3.1.3)!
   rails-assets-leaflet (= 0.7.3)!
   rails-assets-moment!
   rails-assets-papaparse (= 4.0.7)!
@@ -506,6 +456,7 @@ DEPENDENCIES
   sdoc (~> 0.4.0)
   shoulda
   sidekiq (< 5)
+  simple_command
   spring
   therubyracer
   therubyrhino
@@ -517,7 +468,7 @@ DEPENDENCIES
   whenever
 
 RUBY VERSION
-   ruby 2.3.4p301
+   ruby 2.3.8p459
 
 BUNDLED WITH
-   1.16.1
+   1.16.6

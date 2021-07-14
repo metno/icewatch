@@ -59,8 +59,95 @@ class ObservationsController < ApplicationController
     @observation.photos.build
   end
 
-  # POST /observations
-  # POST /observations.json
+  # POST /upload
+  # POST /upload.json
+  def upload
+    @cruise = Cruise.find(params[:cruise_id])
+
+    obs_ids = []
+    errors = []
+    if params[:observation].kind_of? Array
+      puts "Processing Array"
+      multi_observation_params.each do |single_params, index|
+        
+        @observation = @cruise.build_observation
+        obs_params = single_params.except(:photos_attributes)
+        @observation.assign_attributes obs_params #single_params.except(:photos_attributes)
+
+        if single_params.key?(:photos_attributes)
+
+          single_params[:photos_attributes].each do |photo_params|
+            next if photo_params[:file].empty?
+            next if !photo_params[:file].include? ";base64,"
+	    
+            dtype,_,b64_str = photo_params[:file].partition(";base64,")
+            img_fmt = dtype.partition("/").last
+            decoded_image = Base64.decode64(b64_str)
+
+            # build file name from first 10 chars of ship name, date, time, location
+            cruise_name = @cruise.ship[0..10].delete(' ')
+            if photo_params.key?(:on_boat_location_lookup_id)
+              boat_location = Lookup.find_by(id: photo_params[:on_boat_location_lookup_id]).name
+            else
+              boat_location = ''
+            end
+            dt_time = @observation.observed_at.strftime("_%Y%d%m_%H%M_")
+
+            filename="/tmp/"+cruise_name+dt_time+boat_location+"."+img_fmt
+
+            # Open temp file to write image
+            File.open(filename, "wb") do |f|
+              f.write(decoded_image)
+            end
+
+            checksum = Digest::MD5.hexdigest(filename)
+            photos = @observation.photos.where(checksum: checksum, file_filename: filename)
+            photos = [@observation.photos.build(checksum: checksum)] if photos.empty?
+	    
+            photos.each do |photo|
+              next if photo.file_id.present?
+              File.open(filename) do |f|
+                photo.file = f
+              end
+              photo.on_boat_location_lookup_id = photo_params[:on_boat_location_lookup_id]
+              photo.save
+            end
+            FileUtils.remove_entry_secure(filename)   
+          end
+        end
+
+        if @observation.save validate: false
+          obs_ids << @observation.id
+        else
+          obs_ids << nil
+          errors << @observation.errors
+        end
+      end
+	
+    else
+      puts "Processing single observation"
+      @observation = @cruise.build_observation
+      @observation.assign_attributes observation_params
+
+      if @observation.save validate: false
+        obs_ids << @observation.id
+      else
+        obs_id << nil
+        errors << @observation.errors
+      end
+    end 
+
+    response_json = { "observation_ids" => obs_ids, "errors" => errors }
+    notice_html = String(obs_ids.count{|v| !v.nil?}) + ' observations successfully created, ' +  String(errors.length) + 'errors:' + String(errors)
+
+    respond_to do |format|
+      format.html { redirect_to edit_observation_path(@observation), notice: notice_html }
+      format.json { render json: response_json, status: :created }
+    end
+  end
+
+  # POST /observation
+  # POST /observation.json
   def create
     @cruise = Cruise.find(params[:cruise_id])
     @observation = @cruise.build_observation
@@ -73,7 +160,7 @@ class ObservationsController < ApplicationController
         format.html { render :new }
         format.json { render json: @observation.errors, status: :unprocessable_entity }
       end
-    end
+    end  
   end
 
   # PATCH/PUT /observations/1
@@ -81,7 +168,7 @@ class ObservationsController < ApplicationController
   def update
     @observation.assign_attributes observation_params
     respond_to do |format|
-      if @observation.save(validate: false)
+      if @observation.save#(validate: false)
         if params[:commit] == 'Save and Exit'
           format.html { redirect_to root_url }
         else
@@ -285,7 +372,19 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def observation_params
-    params.require(:observation).permit(
+    params.require(:observation).permit(*ALLOWED_OBS_PARAMS)
+    #params.permit(
+  #def select_permitted(observation_params)
+  #  observation_params.permit(
+  end
+
+  def multi_observation_params
+    params.require(:observation).map do |p|
+      p.permit(*ALLOWED_OBS_PARAMS)
+    end
+  end
+
+ALLOWED_OBS_PARAMS = [
       :cruise_id, :observed_at, :latitude, :longitude, :uuid,
       :lat_minutes, :lat_seconds, :lon_minutes, :lon_seconds,
       :primary_observer_id_or_name, additional_observers_id_or_name: [],
@@ -312,8 +411,8 @@ private
                                                             ],
                                     faunas_attributes: [:id, :name, :count, :_destroy],
                                     photos_attributes: [:id, :file, :on_boat_location_lookup_id, :_destroy]
-    )
-  end
+]#    )
+#  end
 
   def import_params
     params.require(:observation).permit!

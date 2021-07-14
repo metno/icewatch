@@ -34,3 +34,12 @@ results
 .DS_Store
 
 *.egg-info/*
+
+.byebug_history
+.vagrant/
+
+node_modules/
+package-lock.json
+python/build/
+python/dist/
+
