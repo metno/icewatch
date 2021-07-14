@@ -64,59 +64,64 @@ class ObservationsController < ApplicationController
   def upload
     @cruise = Cruise.find(params[:cruise_id])
 
-    success_count = 0
-    fail_count = 0 
     obs_ids = []
+    errors = []
     if params[:observation].kind_of? Array
       puts "Processing Array"
       multi_observation_params.each do |single_params, index|
+        
         @observation = @cruise.build_observation
-	obs_params = single_params.except(:photos_attributes)
-	@observation.assign_attributes obs_params #single_params.except(:photos_attributes)
+        obs_params = single_params.except(:photos_attributes)
+        @observation.assign_attributes obs_params #single_params.except(:photos_attributes)
 
-	if single_params.key?(:photos_attributes)
-	  single_params[:photos_attributes].each do |photo_params|
+        if single_params.key?(:photos_attributes)
+
+          single_params[:photos_attributes].each do |photo_params|
             next if photo_params[:file].empty?
-	    next if !photo_params[:file].include? ";base64,"
+            next if !photo_params[:file].include? ";base64,"
 	    
-	    dtype,_,b64_str = photo_params[:file].partition(";base64,")
-	    img_fmt = dtype.partition("/").last
-	    decoded_image = Base64.decode64(b64_str)
+            dtype,_,b64_str = photo_params[:file].partition(";base64,")
+            img_fmt = dtype.partition("/").last
+            decoded_image = Base64.decode64(b64_str)
 
-	    # build file name from first 10 chars if ship name, date, time, location
-	    cruise_name = @cruise.ship[0..10].delete(' ')
-	    boat_location = Lookup.find_by(id: photo_params[:on_boat_location_lookup_id]).name
-	    dt_time = @observation.observed_at.strftime("_%Y%d%m_%H%M_")
+            # build file name from first 10 chars of ship name, date, time, location
+            cruise_name = @cruise.ship[0..10].delete(' ')
+            if photo_params.key?(:on_boat_location_lookup_id)
+              boat_location = Lookup.find_by(id: photo_params[:on_boat_location_lookup_id]).name
+            else
+              boat_location = ''
+            end
+            dt_time = @observation.observed_at.strftime("_%Y%d%m_%H%M_")
 
-	    filename="/tmp/"+cruise_name+dt_time+boat_location+"."+img_fmt
+            filename="/tmp/"+cruise_name+dt_time+boat_location+"."+img_fmt
 
-	    # Open temp file to write image
-	    File.open(filename, "wb") do |f|
-  	      f.write(decoded_image)
-	    end
+            # Open temp file to write image
+            File.open(filename, "wb") do |f|
+              f.write(decoded_image)
+            end
 
-	    checksum = Digest::MD5.hexdigest(filename)
-	    photos = @observation.photos.where(checksum: checksum, file_filename: filename)
-	    photos = [@observation.photos.build(checksum: checksum)] if photos.empty?
+            checksum = Digest::MD5.hexdigest(filename)
+            photos = @observation.photos.where(checksum: checksum, file_filename: filename)
+            photos = [@observation.photos.build(checksum: checksum)] if photos.empty?
 	    
             photos.each do |photo|
               next if photo.file_id.present?
-	      File.open(filename) do |f|
+              File.open(filename) do |f|
                 photo.file = f
-	      end
-	      photo.on_boat_location_lookup_id = photo_params[:on_boat_location_lookup_id]
+              end
+              photo.on_boat_location_lookup_id = photo_params[:on_boat_location_lookup_id]
               photo.save
             end
-	    FileUtils.remove_entry_secure(filename)   
-	  end
-	end
+            FileUtils.remove_entry_secure(filename)   
+          end
+        end
 
-	if @observation.save validate: false
-	  success_count += 1
-	  obs_ids << @observation.id
-	else
-	  fail_count += 1
-	end
+        if @observation.save validate: false
+          obs_ids << @observation.id
+        else
+          obs_ids << nil
+          errors << @observation.errors
+        end
       end
 	
     else
@@ -125,28 +130,20 @@ class ObservationsController < ApplicationController
       @observation.assign_attributes observation_params
 
       if @observation.save validate: false
-        success_count += 1
-	obs_ids << @observation.id
+        obs_ids << @observation.id
       else
-        fail_count += 1
+        obs_id << nil
+        errors << @observation.errors
       end
     end 
 
-    count_json = { "successes" => success_count, "failures" => fail_count, "obs_ids" => obs_ids }
+    response_json = { "observation_ids" => obs_ids, "errors" => errors }
+    notice_html = String(obs_ids.count{|v| !v.nil?}) + ' observations successfully created, ' +  String(errors.length) + 'errors:' + String(errors)
 
     respond_to do |format|
-      format.json { render json: count_json, status: :created }
+      format.html { redirect_to edit_observation_path(@observation), notice: notice_html }
+      format.json { render json: response_json, status: :created }
     end
-#    respond_to do |format|
-#      if @observation.save validate: false
-#        format.html { redirect_to edit_observation_path(@observation), notice: 'Observation was successfully created.' }
-#        format.json { render :show, status: :created, location: @observation }
-#      else
-#        format.html { render :new }
-#        format.json { render json: @observation.errors, status: :unprocessable_entity }
-#      end
-#    end
-
   end
 
   # POST /observation
