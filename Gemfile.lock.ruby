@@ -203,9 +203,6 @@ GEM
     omniauth-oauth2 (1.6.0)
       oauth2 (~> 1.1)
       omniauth (~> 1.9)
-    omniauth-oktaoauth (0.1.6)
-      omniauth (~> 1.5)
-      omniauth-oauth2 (>= 1.4.0, < 2.0)
     parallel (1.12.0)
     parser (2.4.0.0)
       ast (~> 2.2)
@@ -434,7 +431,6 @@ DEPENDENCIES
   nested_form
   omniauth (>= 1.8.1)
   omniauth-keycloak
-  omniauth-oktaoauth
   pg (= 0.21.0)
   poltergeist
   pry-rails
