@@ -37,11 +37,13 @@ class Ability
       can :import, Observation, cruise_id: user_cruises(user)
       can :read, Cruise, approved: true
       can :read, Cruise, id: user_cruises(user)
-      can :read, Observation, status: 'accepted'
+      can %i(create read update delete), Observation, cruise_id: user_cruises(user)
       can :read, User, id: user.id
       can :create, UploadedFile, cruise_id: user_cruises(user)
       # Members can create cruises
       # Members can upload observations
+      # Members can edit unapproved observations on cruises they have created
+      # Members can delete unapproved observations on cruises they have created
       # Members can perform guest actions
     end
 
