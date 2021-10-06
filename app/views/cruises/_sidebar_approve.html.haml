@@ -4,6 +4,12 @@
       %i.fa.fa-thumbs-up
       Approve Cruise
 
+- if can?(:update, Cruise) && !@cruise.approved?
+  %li.list-group-item
+    = link_to edit_cruise_path(@cruise), method: :get do
+      %i.fa.fa-edit
+      Edit Cruise Metadata
+
 - if can?(:approve, Observation) && @cruise.approved?
   %li.list-group-item
     = link_to approve_observations_cruise_path(@cruise), method: :post do

@@ -17,6 +17,8 @@ class ObservationsControllerTest < ActionController::TestCase
   end
 
   test 'should show observation' do
+    login_user(users(:admin))
+
     get :show, id: @observation
     assert_response :success
   end
