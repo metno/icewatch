@@ -1,10 +1,11 @@
 class CruisesController < ApplicationController
-  authorize_resource
-
   before_action :set_cruise, only: [:show, :edit, :update, :destroy, :approve, :reject]
   before_action :set_active_cruise, only: [:index, :show]
   before_action :set_observations, only: [:show]
   before_action :set_current_year, only: [:index]
+
+  authorize_resource
+
   # respond_to :geojson, :json, :csv, :zip
   # GET /cruises
   # GET /cruises.json

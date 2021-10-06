@@ -13,7 +13,7 @@
         - if can?(:edit, Observation)
           = link_to edit_observation_path(observation), class: 'btn btn-xsm btn-default' do
             %i.fa.fa-edit
-        - if can?(:delete, Observation)
+        - if can?(:destroy, Observation)
           = link_to observation_path(observation), method: :delete,
             data: {confirm: 'This will permanently remove this observation'},
             class: 'btn btn-xsm btn-danger' do

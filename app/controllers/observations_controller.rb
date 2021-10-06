@@ -1,8 +1,7 @@
 require "rubypython"
 class ObservationsController < ApplicationController
-  authorize_resource except: [:aspect]
-
   before_action :set_observation, only: [:show, :edit, :update, :destroy]
+  authorize_resource except: [:aspect]
 
   # GET /observations
   # GET /observations.json
