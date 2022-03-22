@@ -62,7 +62,7 @@ gem 'refile', '~> 0.6.2', require: 'refile/rails'
 gem 'refile-mini_magick', platforms: :ruby
 gem 'active_link_to'
 gem 'font-awesome-rails'
-gem 'sidekiq', '< 5', platforms: :ruby
+gem 'sidekiq', '> 5.2', platforms: :ruby
 
 gem 'rubypython'#, '~> 0.6.4'
 
