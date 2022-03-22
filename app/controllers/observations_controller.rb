@@ -1,8 +1,7 @@
 require "rubypython"
 class ObservationsController < ApplicationController
-  authorize_resource except: [:aspect]
-
   before_action :set_observation, only: [:show, :edit, :update, :destroy]
+  authorize_resource except: [:aspect]
 
   # GET /observations
   # GET /observations.json
@@ -167,10 +166,11 @@ class ObservationsController < ApplicationController
   # PATCH/PUT /observations/1.json
   def update
     @observation.assign_attributes observation_params
+    @cruise = Cruise.find @observation.cruise_id
     respond_to do |format|
-      if @observation.save#(validate: false)
+      if @observation.save(validate: false)
         if params[:commit] == 'Save and Exit'
-          format.html { redirect_to root_url }
+          format.html { redirect_to cruise_url(@cruise), notice: 'Observation was successfully updated.' }
         else
           format.html { redirect_to edit_observation_path(@observation), notice: 'Observation was successfully updated.' }
         end
