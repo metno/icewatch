@@ -41,7 +41,7 @@ gem 'omniauth', '>= 1.8.1'
 #gem 'omniauth-google-oauth2'
 #gem 'omniauth-openid'
 #gem 'google-api-client'
-#gem 'omniauth-oktaoauth'
+gem 'omniauth-oktaoauth'
 gem 'omniauth-keycloak'
 gem 'simple_command'
 
