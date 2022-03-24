@@ -39,7 +39,7 @@ class Ability
       can :read, Cruise, id: user_cruises(user)
       can [:edit, :update, :destroy], Cruise, approved: nil, id: user_cruises(user)
       can :read, Observation, cruise_id: user_cruises(user)
-      can [:edit, :update, :destroy], Observation, status: 'saved', cruise_id: user_cruises(user)
+      can [:edit, :upload, :update, :destroy], Observation, cruise_id: user_cruises(user)
       can :read, User, id: user.id
       can :create, UploadedFile, cruise_id: user_cruises(user)
       # Members can create cruises
