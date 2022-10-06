@@ -1,5 +1,6 @@
 class ChartsController < ApplicationController
   before_action :set_cruise
+  skip_before_action :authenticate_request
 
   def index
   end
