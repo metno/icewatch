@@ -85,8 +85,7 @@ class Observation < ActiveRecord::Base
 
   after_validation :merge_association_errors
 
-  attr_writer :additional_observers_id_or_name
-
+  before_validation :resolve_primary_observer
   before_save :resolve_additional_observers
 
   scope :approved, -> { where(status: 'accepted') }
