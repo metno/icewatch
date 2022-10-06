@@ -8,9 +8,7 @@ class ObservationsController < ApplicationController
   def index
     @cruise = Cruise.find(params[:cruise_id])
     @observations = @cruise.observations.order(observed_at: :desc).accessible_by(current_ability)
-    
-    
-    
+
     respond_to do |format|
       format.csv { send_data build_csv, filename: "observations-#{@cruise.id}.csv"}
       format.json { send_data build_json, filename: "observations-#{@cruise.id}.json"}
@@ -65,15 +63,20 @@ class ObservationsController < ApplicationController
 
     obs_ids = []
     errors = []
+    response_json = []
     if params[:observation].kind_of? Array
       puts "Processing Array"
       multi_observation_params.each do |single_params, index|
         
         @observation = @cruise.build_observation
         obs_params = single_params.except(:photos_attributes)
-        @observation.assign_attributes obs_params #single_params.except(:photos_attributes)
+        @observation.assign_attributes obs_params
 
-        if single_params.key?(:photos_attributes)
+	unless @observation.save validate: true 
+	    logger.error @observation.errors.messages
+	end 
+
+        if (single_params.key?(:photos_attributes) && @observation.save(validate: true))
 
           single_params[:photos_attributes].each do |photo_params|
             next if photo_params[:file].empty?
@@ -115,12 +118,16 @@ class ObservationsController < ApplicationController
           end
         end
 
-        if @observation.save validate: false
-          obs_ids << @observation.id
+        if @observation.save validate: true 
+          obs_id = @observation.id
+	  error = nil
         else
-          obs_ids << nil
-          errors << @observation.errors
+          obs_id = @observation.id
+          error = @observation.errors.messages
         end
+
+	response_json << { "observation_id" => obs_id, "error" => error }
+
       end
 	
     else
@@ -129,14 +136,17 @@ class ObservationsController < ApplicationController
       @observation.assign_attributes observation_params
 
       if @observation.save validate: false
-        obs_ids << @observation.id
+        obs_id = @observation.id
+	error = nil
       else
-        obs_id << nil
-        errors << @observation.errors
+        obs_ids = nil
+        errors = @observation.errors
       end
+
+      response_json << { "observation_id" => obs_id, "error" => error }
+
     end 
 
-    response_json = { "observation_ids" => obs_ids, "errors" => errors }
     notice_html = String(obs_ids.count{|v| !v.nil?}) + ' observations successfully created, ' +  String(errors.length) + 'errors:' + String(errors)
 
     respond_to do |format|
