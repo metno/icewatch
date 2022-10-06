@@ -26,7 +26,7 @@ $(document).on 'ready turbolinks:load', ->
     format: 'image/png'
     transparent: true
     continuousWorld: true
-    attributution: '<a href="https://eumetview.eumetsat.int">EUMETSAT</a>'
+    attributution: '<a href="https://view.eumetsat.int">EUMETSAT</a>'
   }).addTo(map)
 
   cruiseLayer = L.featureGroup().addTo(map)
