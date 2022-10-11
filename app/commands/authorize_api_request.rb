@@ -17,7 +17,7 @@ class AuthorizeApiRequest
 
   def user
     @user ||= User.find_by(name: decoded_auth_token[:preferred_username]) if decoded_auth_token
-    @user || nil # errors.add(:token, 'Invalid token') && nil
+    @user || nil 
   end
 
   def decoded_auth_token
@@ -33,7 +33,6 @@ class AuthorizeApiRequest
   end
 
   def get_keys
-    #response = HTTParty.get('https://login.met.no/auth/realms/External/protocol/openid-connect/certs')
     response = HTTParty.get(build_uri(@realm_name, "protocol/openid-connect/certs"))
     json = MultiJson.load(response.body)
 
@@ -44,7 +43,6 @@ class AuthorizeApiRequest
 
   def build_uri(realm_name, path)
     string_uri = File.join(@server_url, "auth/realms", realm_name, path)
-    #URI(string_uri)
   end
 
   def decode(token)
@@ -65,6 +63,6 @@ class AuthorizeApiRequest
 
   def expired?(token)
     token_expiration = Time.at(token["exp"]).to_datetime
-    token_expiration < Time.now #+ @token_expiration_tolerance_in_seconds.seconds
+    token_expiration < Time.now 
   end
 end
