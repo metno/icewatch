@@ -1,7 +1,7 @@
 
 from pandas import read_csv
 import numpy as np
-import StringIO
+import io
 
 
 def format_topo_data ( topo ):
@@ -263,7 +263,7 @@ def assist2aspect ( assist ):
   
 def str2str (assist_string):
     #~ return str(type(assist_string))
-    assist_io = StringIO.StringIO(assist_string)
+    assist_io = io.StringIO(assist_string)
 
     assist = read_csv(assist_io, dtype=str)
     aspect = assist2aspect( assist )
@@ -280,7 +280,7 @@ def str2str (assist_string):
     ]
     
     #convert to csv string and return
-    aspect_io = StringIO.StringIO()
+    aspect_io = io.StringIO()
     aspect.to_csv(aspect_io, index = False)
     aspect = aspect_io.getvalue()
     aspect_io.close()
