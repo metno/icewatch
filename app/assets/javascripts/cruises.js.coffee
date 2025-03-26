@@ -21,12 +21,12 @@ $(document).on 'ready turbolinks:load', ->
 
   map.setView [90, 90], 2 
 
-  L.tileLayer.wms('https://eumetview.eumetsat.int/geoserv/wms', {
-    layers: 'bkg-raster:bkg-raster'
+  L.tileLayer.wms('https://view.eumetsat.int/geoserver/wms', {
+    layers: 'backgrounds:ne_background'
     format: 'image/png'
     transparent: true
     continuousWorld: true
-    attributution: '<a href="https://eumetview.eumetsat.int">EUMETSAT</a>'
+    attributution: '<a href="https://view.eumetsat.int">EUMETSAT</a>'
   }).addTo(map)
 
   cruiseLayer = L.featureGroup().addTo(map)
